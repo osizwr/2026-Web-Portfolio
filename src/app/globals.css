@@ -1,26 +1,208 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
 
+@custom-variant dark (&:is(.dark *));
+
+/* Design tokens — see DESIGN.md (DJI design language) */
 :root {
+  /* Brand & accent */
+  --primary: #0070d5;
+  --primary-foreground: #ffffff;
+  --store-blue: #0060ef;
+  --store-blue-tint: #deeafd;
+  --link-blue: #1890ff;
+  --tier-orange: #be4e04;
+  --badge-orange: #fa8c16;
+
+  /* Surfaces */
   --background: #ffffff;
-  --foreground: #171717;
+  --canvas-soft: #f7f9fa;
+  --panel: #f6f8f9;
+  --fog: #f5f5f5;
+  --announce: #fafafa;
+  --media-black: #000000;
+  --footer: #272727;
+  --footer-pill: #383838;
+  --footer-divider: #414141;
+
+  /* Ink — never pure black */
+  --foreground: #262626;
+  --ink-secondary: #595959;
+  --ink-tertiary: #8c8c8c;
+  --store-ink: #333333;
+  --graphite: #3b3e40;
+  --nav-ink: #303233;
+  --slate: #6c7073;
+  --steel: #9fa3a6;
+  --footer-link: #b3b3b3;
+
+  /* Lines */
+  --hairline: #f0f0f0;
+  --divider: #e8e8e8;
+  --card-border: #d9d9d9;
+  --input-border: #d4d7d9;
+  --control-border: #cccccc;
+
+  /* shadcn roles, mapped onto the palette above */
+  --card: #ffffff;
+  --card-foreground: #262626;
+  --popover: #ffffff;
+  --popover-foreground: #262626;
+  --secondary: #f5f5f5;
+  --secondary-foreground: #262626;
+  --muted: #f7f9fa;
+  --muted-foreground: #595959;
+  --accent: #f5f5f5;
+  --accent-foreground: #262626;
+  --destructive: #f5222d;
+  --success: #52c41a;
+  --border: #e8e8e8;
+  --input: #d4d7d9;
+  --ring: #0070d5;
+  --radius: 8px;
 }
 
 @theme inline {
+  --font-sans: var(--font-open-sans);
+
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-store-blue: var(--store-blue);
+  --color-store-blue-tint: var(--store-blue-tint);
+  --color-link-blue: var(--link-blue);
+  --color-tier-orange: var(--tier-orange);
+  --color-badge-orange: var(--badge-orange);
+
+  --color-canvas-soft: var(--canvas-soft);
+  --color-panel: var(--panel);
+  --color-fog: var(--fog);
+  --color-announce: var(--announce);
+  --color-media-black: var(--media-black);
+  --color-footer: var(--footer);
+  --color-footer-pill: var(--footer-pill);
+  --color-footer-divider: var(--footer-divider);
+  --color-footer-link: var(--footer-link);
+
+  --color-ink: var(--foreground);
+  --color-ink-secondary: var(--ink-secondary);
+  --color-ink-tertiary: var(--ink-tertiary);
+  --color-store-ink: var(--store-ink);
+  --color-graphite: var(--graphite);
+  --color-nav-ink: var(--nav-ink);
+  --color-slate: var(--slate);
+  --color-steel: var(--steel);
+
+  --color-hairline: var(--hairline);
+  --color-divider: var(--divider);
+  --color-card-border: var(--card-border);
+  --color-input-border: var(--input-border);
+  --color-control-border: var(--control-border);
+
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-success: var(--success);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  /* DESIGN.md radius scale */
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 8px;
+  --radius-lg: 8px;
+  --radius-xl: 60px;
+  --radius-2xl: 64px;
+  --radius-3xl: 100px;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground font-sans;
+    letter-spacing: -0.02em;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Type scale — DESIGN.md typography tokens */
+@layer components {
+  .type-display-xl {
+    font-size: 48px;
+    font-weight: 600;
+    line-height: 1.08;
+    letter-spacing: -1.44px;
+  }
+  .type-display {
+    font-size: 40px;
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: -1.2px;
+  }
+  .type-heading {
+    font-size: 32px;
+    font-weight: 600;
+    line-height: 1.125;
+    letter-spacing: -0.96px;
+  }
+  .type-title-md {
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 1.17;
+    letter-spacing: -0.72px;
+  }
+  .type-subhead {
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: -0.6px;
+  }
+  .type-body {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.5;
+    letter-spacing: -0.32px;
+  }
+  .type-button {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.25;
+    letter-spacing: -0.32px;
+  }
+  .type-ui {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.43;
+    letter-spacing: -0.28px;
+  }
+  .type-nav {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: -0.28px;
+  }
+  .type-caption {
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.33;
+    letter-spacing: -0.24px;
+  }
+  .type-badge {
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.33;
+    letter-spacing: -0.24px;
+  }
 }
