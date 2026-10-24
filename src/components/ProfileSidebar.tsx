@@ -1,25 +1,16 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { siteConfig } from "@/lib/site-config";
 import { FaLinkedin } from "react-icons/fa6";
 import { SiFacebook, SiGithub, SiGmail, SiInstagram } from "react-icons/si";
 
+const { email, github, linkedin, facebook, instagram } = siteConfig.links;
+
 const socials = [
-  { label: "Gmail", href: "mailto:your.name@gmail.com", Icon: SiGmail },
-  { label: "GitHub", href: "https://github.com/your-username", Icon: SiGithub },
-  {
-    label: "LinkedIn",
-    href: "https://www.linkedin.com/in/your-handle",
-    Icon: FaLinkedin,
-  },
-  {
-    label: "Facebook",
-    href: "https://www.facebook.com/your-handle",
-    Icon: SiFacebook,
-  },
-  {
-    label: "Instagram",
-    href: "https://www.instagram.com/your-handle",
-    Icon: SiInstagram,
-  },
+  { label: "Gmail", href: email ? `mailto:${email}` : "#", Icon: SiGmail },
+  { label: "GitHub", href: github || "#", Icon: SiGithub },
+  { label: "LinkedIn", href: linkedin || "#", Icon: FaLinkedin },
+  { label: "Facebook", href: facebook || "#", Icon: SiFacebook },
+  { label: "Instagram", href: instagram || "#", Icon: SiInstagram },
 ];
 
 const row =
@@ -30,11 +21,11 @@ export default function ProfileSidebar() {
     <div className="w-full max-w-[360px]">
       <a href="#" className={row}>
         <Avatar className="size-9 shrink-0">
-          <AvatarImage src="/profile.jpg" alt="Marvin Marianito Cajilo" />
+          <AvatarImage src="/profile.jpg" alt={siteConfig.name} />
           <AvatarFallback className="type-caption">MM</AvatarFallback>
         </Avatar>
         <span className="type-body font-semibold text-ink">
-          Marvin Marianito Cajilo
+          {siteConfig.name}
         </span>
       </a>
 

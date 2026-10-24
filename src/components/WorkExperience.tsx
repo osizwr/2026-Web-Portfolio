@@ -1,8 +1,18 @@
 import { Briefcase } from "lucide-react";
 
-const experience = [
+type Role = { title: string; period: string; duration?: string };
+type EmploymentType = "full-time" | "freelance";
+type Employer = {
+  company: string;
+  subtitle?: string;
+  type: EmploymentType;
+  roles: Role[];
+};
+
+export const experience: Employer[] = [
   {
-    company: "Safety System Pty Ltd",
+    company: "Safety Systems Pty Ltd",
+    type: "full-time",
     roles: [
       {
         title: "Senior Software Engineer",
@@ -20,7 +30,9 @@ const experience = [
     ],
   },
   {
-    company: "Art of Scaling LLC (Content Creator)",
+    company: "Art of Scaling LLC",
+    type: "freelance",
+    subtitle: "Content Creator",
     roles: [
       {
         title: "Head Video Editor",
@@ -29,7 +41,9 @@ const experience = [
     ],
   },
   {
-    company: "AO Productions (AI-Videos)",
+    company: "AO Productions",
+    type: "freelance",
+    subtitle: "AI-Videos",
     roles: [
       {
         title: "Head Video Editor",
@@ -37,6 +51,22 @@ const experience = [
       },
     ],
   },
+  {
+    company: "Ragnarok Online Private Server",
+    type: "freelance",
+    subtitle: "Delirium RO",
+    roles: [
+      {
+        title: "Game Developer",
+        period: "Mar 2023 – Jul 2023",
+      },
+    ],
+  },
+];
+
+const groups: { label: string; type: EmploymentType }[] = [
+  { label: "Full-time", type: "full-time" },
+  { label: "Freelance & Contract", type: "freelance" },
 ];
 
 export default function WorkExperience() {
@@ -46,57 +76,84 @@ export default function WorkExperience() {
         Work Experience
       </h2>
 
-      {experience.map(({ company, roles }) => (
-        <div key={company} className="flex flex-col gap-3">
-          <div className="flex items-center gap-3">
-            <span className="flex size-10 shrink-0 items-center justify-center rounded-full bg-fog">
-              <Briefcase
-                aria-hidden
-                size={18}
-                strokeWidth={1.5}
-                className="text-ink-secondary"
-              />
-            </span>
-            <span className="type-body font-semibold text-ink">{company}</span>
-          </div>
+      {groups.map(({ label, type }) => {
+        const employers = experience.filter((entry) => entry.type === type);
+        if (employers.length === 0) return null;
 
-          <ul>
-            {roles.map(({ title, period, duration }, index) => {
-              const isCurrent = period.includes("Present");
+        return (
+          <div key={label} className="flex flex-col gap-4">
+            <h3 className="type-caption tracking-[0.12em] text-ink-tertiary uppercase">
+              {label}
+            </h3>
 
-              return (
-                <li key={title} className="relative pb-4 pl-[52px] last:pb-0">
-                  {index < roles.length - 1 && (
-                    <span
+            {employers.map(({ company, subtitle, roles }) => (
+              <div key={company} className="flex flex-col gap-3">
+                <div className="flex items-center gap-3">
+                  <span className="flex size-10 shrink-0 items-center justify-center rounded-full bg-fog">
+                    <Briefcase
                       aria-hidden
-                      className="absolute top-6 -bottom-6 left-5 w-px -translate-x-1/2 bg-card-border"
+                      size={18}
+                      strokeWidth={1.5}
+                      className="text-ink-secondary"
                     />
-                  )}
-                  {isCurrent ? (
-                    <span
-                      aria-hidden
-                      className="absolute top-5 left-5 flex size-2 -translate-x-1/2"
-                    >
-                      <span className="absolute inline-flex size-full animate-ping rounded-full bg-success opacity-75 motion-reduce:hidden" />
-                      <span className="relative inline-flex size-full rounded-full bg-success" />
+                  </span>
+                  <div className="flex flex-col">
+                    <span className="type-body font-semibold text-ink">
+                      {company}
                     </span>
-                  ) : (
-                    <span
-                      aria-hidden
-                      className="absolute top-5 left-5 size-2 -translate-x-1/2 rounded-full bg-steel"
-                    />
-                  )}
-                  <p className="type-body font-semibold text-ink">{title}</p>
-                  <p className="type-ui text-ink-secondary">
-                    {period}
-                    {duration && ` · ${duration}`}
-                  </p>
-                </li>
-              );
-            })}
-          </ul>
-        </div>
-      ))}
+                    {subtitle && (
+                      <span className="type-ui text-ink-secondary">
+                        {subtitle}
+                      </span>
+                    )}
+                  </div>
+                </div>
+
+                <ul>
+                  {roles.map(({ title, period, duration }, index) => {
+                    const isCurrent = period.includes("Present");
+
+                    return (
+                      <li
+                        key={title}
+                        className="relative pb-4 pl-[52px] last:pb-0"
+                      >
+                        {index < roles.length - 1 && (
+                          <span
+                            aria-hidden
+                            className="absolute top-6 -bottom-6 left-5 w-px -translate-x-1/2 bg-card-border"
+                          />
+                        )}
+                        {isCurrent ? (
+                          <span
+                            aria-hidden
+                            className="absolute top-5 left-5 flex size-2 -translate-x-1/2"
+                          >
+                            <span className="absolute inline-flex size-full animate-ping rounded-full bg-success opacity-75 motion-reduce:hidden" />
+                            <span className="relative inline-flex size-full rounded-full bg-success" />
+                          </span>
+                        ) : (
+                          <span
+                            aria-hidden
+                            className="absolute top-5 left-5 size-2 -translate-x-1/2 rounded-full bg-steel"
+                          />
+                        )}
+                        <p className="type-body font-semibold text-ink">
+                          {title}
+                        </p>
+                        <p className="type-ui text-ink-secondary">
+                          {period}
+                          {duration && ` · ${duration}`}
+                        </p>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+            ))}
+          </div>
+        );
+      })}
     </section>
   );
 }

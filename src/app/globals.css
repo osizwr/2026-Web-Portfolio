@@ -20,7 +20,7 @@
   --canvas-soft: #f7f9fa;
   --panel: #f6f8f9;
   --fog: #f5f5f5;
-  --announce: #fafafa;
+  --announce: #f5f5f5;
   --media-black: #000000;
   --footer: #272727;
   --footer-pill: #383838;
@@ -131,6 +131,12 @@
   * {
     @apply border-border outline-ring/50;
   }
+  /* Project rule: images are never draggable (see ImageProtection.tsx). */
+  img,
+  picture {
+    -webkit-user-drag: none;
+    user-select: none;
+  }
   body {
     @apply bg-background text-foreground font-sans;
     letter-spacing: -0.02em;
@@ -205,4 +211,97 @@
     line-height: 1.33;
     letter-spacing: -0.24px;
   }
+}
+
+/*
+|--------------------------------------------------------------------------
+| The game's cursor (ported from fluxcp-modern)
+|--------------------------------------------------------------------------
+|
+| An arrow that turns, and the glove shown over anything you can click.
+| <AnimatedCursor /> publishes the images as custom properties and adds the
+| class; these rules decide where each one applies, and with what hotspot.
+|
+| Deliberately outside every @layer: an unlayered declaration beats a layered
+| one whatever its specificity, so a Tailwind `cursor-pointer` utility cannot
+| quietly win against these.
+|
+| The class is only added once the component has decided the cursor is wanted,
+| so a visitor on a touch screen never has these rules applied at all. `auto`
+| and `pointer` are the fallbacks if an image fails to load: a missing file
+| costs the decoration, not the pointer.
+*/
+
+/* Arrow frames are padded to a uniform 32x32 with the tip in the corner, so
+   the hotspot is `0 0` throughout and the point does not wander as it spins. */
+html.cursor-animated {
+  cursor:
+    var(--cursor-frame) 0 0,
+    auto;
+}
+
+/* The glove, for things that can actually be clicked. Listed by element
+   because CSS cannot be asked for "whatever computes to `cursor: pointer`".
+   The hotspot is the fingertip, and it shifts by a pixel as the finger curls
+   on press — following it keeps the tip pinned while the hand recoils. */
+html.cursor-animated
+  :is(
+    a[href],
+    button,
+    summary,
+    select,
+    label[for],
+    [role="button"],
+    [role="link"],
+    [role="tab"],
+    [role="menuitem"],
+    [role="option"],
+    [role="switch"],
+    input[type="checkbox"],
+    input[type="radio"],
+    input[type="file"],
+    input[type="submit"],
+    input[type="reset"],
+    input[type="button"]
+  ):not(:disabled, [aria-disabled="true"]) {
+  cursor:
+    var(--cursor-hand) 2 1,
+    pointer;
+
+  &:active {
+    cursor:
+      var(--cursor-hand-press) 2 2,
+      pointer;
+  }
+}
+
+/* Text fields, which would otherwise keep the browser's I-beam. `text` stays
+   as the fallback rather than `default` — it is the honest affordance. */
+html.cursor-animated
+  :is(
+    textarea,
+    input:not(
+        [type="button"],
+        [type="checkbox"],
+        [type="color"],
+        [type="file"],
+        [type="image"],
+        [type="radio"],
+        [type="range"],
+        [type="reset"],
+        [type="submit"]
+      )
+  ) {
+  cursor:
+    var(--cursor-frame) 0 0,
+    text;
+}
+
+/* Disabled controls keep `not-allowed`: a recognised signal that a control
+   will refuse the click, which a spinning arrow is not. Last, so a disabled
+   text field takes this rather than the rule above. */
+html.cursor-animated :is(:disabled, [aria-disabled="true"]) {
+  cursor:
+    var(--cursor-arrow-still) 0 0,
+    not-allowed;
 }

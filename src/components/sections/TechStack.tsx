@@ -19,7 +19,7 @@ import {
   SiVuedotjs,
 } from "react-icons/si";
 
-const stack = [
+export const stack = [
   {
     category: "Languages",
     items: [

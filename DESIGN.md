@@ -16,7 +16,7 @@ colors:
   canvas-soft: "#f7f9fa"      # feature-link band, store panels, In the Box tiles, store footer
   panel: "#f6f8f9"            # product benefits panel
   fog: "#f5f5f5"              # Explore More band, product-card backdrop, region pill
-  announce: "#fafafa"         # announcement bar, category icon strip
+  announce: "#f5f5f5"         # announcement bar, category icon strip
   media-black: "#000000"      # store feature media tiles
   footer: "#272727"           # brand-site footer
   footer-pill: "#383838"      # Download App pill on the footer
@@ -551,7 +551,7 @@ Source pages: dji.com home, the camera-drones category page, and a store product
 - **Canvas Soft** (`{colors.canvas-soft}` — #f7f9fa): feature-link band, store panels, In the Box tiles, footnote panel and the store footer.
 - **Panel** (`{colors.panel}` — #f6f8f9): the product benefits panel.
 - **Fog** (`{colors.fog}` — #f5f5f5): Explore More band, product-card backdrop and the Other Regions pill.
-- **Announce** (`{colors.announce}` — #fafafa): announcement bar and the category icon strip.
+- **Announce** (`{colors.announce}` — #f5f5f5): announcement bar and the category icon strip.
 - **Media Black** (`{colors.media-black}`): store feature media tiles.
 - **Footer** (`{colors.footer}` — #272727), with **Footer Pill** (`{colors.footer-pill}` — #383838) and **Footer Divider** (`{colors.footer-divider}` — #414141).
 - **Lines**: `{colors.hairline}` (#f0f0f0) tab track, `{colors.divider}` (#e8e8e8) FAQ and purchase-bar rules, `{colors.card-border}` (#d9d9d9) option cards, `{colors.dashed-border}` (#dddddd) unavailable option, `{colors.input-border}` (#d4d7d9) store email field, `{colors.control-border}` (#cccccc) steppers and checkboxes.
