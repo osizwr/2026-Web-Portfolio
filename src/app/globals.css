@@ -143,74 +143,74 @@
   }
 }
 
-/* Type scale — DESIGN.md typography tokens */
-@layer components {
-  .type-display-xl {
+/* Type scale — DESIGN.md typography tokens.
+   Declared as @utility, not plain classes, so they take variants:
+   `type-heading sm:type-display-xl` steps the size up at a breakpoint. */
+@utility type-display-xl {
     font-size: 48px;
     font-weight: 600;
     line-height: 1.08;
     letter-spacing: -1.44px;
-  }
-  .type-display {
+}
+@utility type-display {
     font-size: 40px;
     font-weight: 600;
     line-height: 1.2;
     letter-spacing: -1.2px;
-  }
-  .type-heading {
+}
+@utility type-heading {
     font-size: 32px;
     font-weight: 600;
     line-height: 1.125;
     letter-spacing: -0.96px;
-  }
-  .type-title-md {
+}
+@utility type-title-md {
     font-size: 24px;
     font-weight: 600;
     line-height: 1.17;
     letter-spacing: -0.72px;
-  }
-  .type-subhead {
+}
+@utility type-subhead {
     font-size: 20px;
     font-weight: 600;
     line-height: 1.2;
     letter-spacing: -0.6px;
-  }
-  .type-body {
+}
+@utility type-body {
     font-size: 16px;
     font-weight: 400;
     line-height: 1.5;
     letter-spacing: -0.32px;
-  }
-  .type-button {
+}
+@utility type-button {
     font-size: 16px;
     font-weight: 400;
     line-height: 1.25;
     letter-spacing: -0.32px;
-  }
-  .type-ui {
+}
+@utility type-ui {
     font-size: 14px;
     font-weight: 400;
     line-height: 1.43;
     letter-spacing: -0.28px;
-  }
-  .type-nav {
+}
+@utility type-nav {
     font-size: 14px;
     font-weight: 400;
     line-height: 1;
     letter-spacing: -0.28px;
-  }
-  .type-caption {
+}
+@utility type-caption {
     font-size: 12px;
     font-weight: 400;
     line-height: 1.33;
     letter-spacing: -0.24px;
-  }
-  .type-badge {
+}
+@utility type-badge {
     font-size: 12px;
     font-weight: 600;
     line-height: 1.33;
     letter-spacing: -0.24px;
-  }
 }
 
 /*

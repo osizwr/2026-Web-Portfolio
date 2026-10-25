@@ -4,6 +4,7 @@ import { ArrowRight } from "lucide-react";
 import ContributionGraph from "@/components/ContributionGraph";
 import GitHubRepos from "@/components/GitHubRepos";
 import ProjectCard from "@/components/ProjectCard";
+import ProjectCarousel from "@/components/ProjectCarousel";
 import { useSection } from "@/components/SectionProvider";
 import { Button } from "@/components/ui/button";
 import { featuredProjects } from "@/data/projects";
@@ -24,7 +25,7 @@ export default function Home() {
           </span>
         </span>
 
-        <h2 className="type-display-xl text-ink uppercase">
+        <h2 className="type-heading sm:type-display-xl text-ink uppercase">
           Hi, I&apos;m Marvin
         </h2>
 
@@ -67,7 +68,11 @@ export default function Home() {
           </button>
         </div>
 
-        <ul className="grid gap-4 sm:grid-cols-2">
+        <div className="lg:hidden">
+          <ProjectCarousel projects={featuredProjects} />
+        </div>
+
+        <ul className="hidden gap-4 lg:grid lg:grid-cols-2">
           {featuredProjects.map((project, index) => (
             <ProjectCard key={project.title} project={project} index={index} />
           ))}

@@ -6,15 +6,26 @@ type ProjectCardProps = {
   project: Project;
   /** Position in its list, used to stagger the entrance animation. */
   index?: number;
+  /** Extra classes for the <li>, e.g. sizing inside a carousel. */
+  className?: string;
+  /** True for carousel clones: keeps them out of the tab order and off AT. */
+  hidden?: boolean;
 };
 
-export default function ProjectCard({ project, index = 0 }: ProjectCardProps) {
+export default function ProjectCard({
+  project,
+  index = 0,
+  className = "",
+  hidden = false,
+}: ProjectCardProps) {
   const { title, category, description, tags, href } = project;
 
   return (
     <li
+      inert={hidden || undefined}
+      aria-hidden={hidden || undefined}
       style={{ animationDelay: `${index * 60}ms` } as CSSProperties}
-      className="fill-mode-both fade-in slide-in-from-bottom-2 animation-duration-300 motion-safe:animate-in"
+      className={`fill-mode-both fade-in slide-in-from-bottom-2 animation-duration-300 motion-safe:animate-in ${className}`}
     >
       <a
         href={href}

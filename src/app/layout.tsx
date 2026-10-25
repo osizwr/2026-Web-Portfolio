@@ -20,7 +20,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" className={`${openSans.variable} h-full antialiased`}>
-      <body className="flex min-h-full flex-col">
+      <body className="flex min-h-full flex-col pb-[calc(5.5rem+env(safe-area-inset-bottom))] lg:pb-0">
         <AnimatedCursor />
         <ImageProtection />
         <SectionProvider>

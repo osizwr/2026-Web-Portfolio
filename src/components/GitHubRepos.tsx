@@ -97,7 +97,7 @@ export default function GitHubRepos() {
           Couldn&apos;t load repositories right now.
         </p>
       ) : (
-        <ul className="grid gap-4 sm:grid-cols-2">
+        <ul className="grid grid-cols-2 gap-3 sm:gap-4">
           {repos
             ? repos.map(
                 ({
@@ -114,9 +114,9 @@ export default function GitHubRepos() {
                       href={html_url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex h-full flex-col gap-2 bg-canvas-soft p-5 transition duration-200 hover:bg-background hover:ring-1 hover:ring-card-border motion-safe:hover:-translate-y-0.5"
+                      className="flex h-full flex-col gap-2 bg-canvas-soft p-4 sm:p-5 transition duration-200 hover:bg-background hover:ring-1 hover:ring-card-border motion-safe:hover:-translate-y-0.5"
                     >
-                      <span className="type-body font-semibold text-ink">
+                      <span className="type-body font-semibold break-words text-ink">
                         {name}
                       </span>
 

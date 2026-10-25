@@ -1,12 +1,20 @@
 "use client";
 
 import { useEffect, useId, useMemo, useRef, useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
 import { Search } from "lucide-react";
 import { useSection } from "./SectionProvider";
 import { search, sectionIcons, type SearchResult } from "@/lib/search";
 
-export default function SearchBar() {
+export default function SearchBar({
+  onNavigate,
+}: {
+  /** Lets the mobile header collapse its search row once a result is picked. */
+  onNavigate?: () => void;
+}) {
   const { setActive } = useSection();
+  const pathname = usePathname();
+  const router = useRouter();
   const [query, setQuery] = useState("");
   const [open, setOpen] = useState(false);
   const [highlighted, setHighlighted] = useState(0);
@@ -29,6 +37,10 @@ export default function SearchBar() {
     setActive(result.section);
     setQuery("");
     setOpen(false);
+    // Sections are state, not routes: from another page the outlet only shows
+    // the pick once we are back on "/".
+    if (pathname !== "/") router.push("/");
+    onNavigate?.();
   }
 
   function onKeyDown(event: React.KeyboardEvent<HTMLInputElement>) {
@@ -84,7 +96,7 @@ export default function SearchBar() {
         <ul
           id={listId}
           role="listbox"
-          className="absolute top-12 left-0 z-50 w-full min-w-[280px] overflow-hidden rounded-sm border border-card-border bg-background py-1 shadow-[0_8px_16px_rgba(0,0,0,0.1)]"
+          className="absolute top-12 left-0 z-50 w-full overflow-hidden rounded-sm border border-card-border bg-background py-1 shadow-[0_8px_16px_rgba(0,0,0,0.1)]"
         >
           {results.map((result, index) => {
             const Icon = sectionIcons.get(result.section);
